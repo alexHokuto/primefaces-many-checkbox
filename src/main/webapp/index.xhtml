@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+<style type="text/css">
+.ui-selectlistbox-listcontainer{
+ overflow: initial !important;
+}
+</style>
+</h:head>
+
+<h:body>
+    <h2>SelectManyMenu Example</h2>
+    <h:form>
+        <p:selectManyMenu value="#{empSelectBean.selectedEmployees}"
+                          converter="empConverter"
+                          var="s"
+                          filter="true" filterMatchMode="contains"
+                          showCheckbox="true"
+                          style="width:300px;">
+            <f:selectItems value="#{empSelectBean.employees}" var="emp"
+                           itemLabel="#{emp.name}" itemValue="#{emp}"/>
+            <p:column>
+                <h:outputText value="#{s.name}"/>
+            </p:column>
+            <p:column>
+                <h:outputText value="#{s.dept}"/>
+            </p:column>
+        </p:selectManyMenu>
+        <p:commandButton value="Submit" update="selectedEmpPanel"/>
+
+        <h3>Selected Employees:</h3>
+        <h:panelGrid id="selectedEmpPanel" columns="1">
+            <ui:repeat value="#{empSelectBean.selectedEmployees}" var="emp">
+                <h:outputText value="#{emp.name} (#{emp.dept})"/>
+                <br/>
+            </ui:repeat>
+        </h:panelGrid>
+    </h:form>
+</h:body>
+
+</html>
